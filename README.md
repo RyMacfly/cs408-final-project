@@ -64,10 +64,7 @@ This project’s design not only provides essential functionalities like recipe 
 
 TODO: Replace the wireframe below with you own design.
 
-![image](https://github.com/user-attachments/assets/33397280-fc4f-4200-a764-96d69d5fe1af)
-![image](https://github.com/user-attachments/assets/8416dca6-da74-442c-b2ea-086032fde7fd)
-![image](https://github.com/user-attachments/assets/1410c8aa-9ac6-4b8a-83ff-85fc09e0a022)
-![image](https://github.com/user-attachments/assets/bc6b5624-46eb-42b9-9018-1e7d0d5322ca)
+![image](https://github.com/user-attachments/assets/103ab4ef-6aa3-40f1-b010-519688b4a523)
 
 
 
