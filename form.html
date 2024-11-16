@@ -1,23 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Recipe</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 </head>
-<body>
-    <header>
 
-        <h1>Add New Recipe</h1>
-    </header>
-    <ul class="nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="recipe.html">Recipes</a></li>
-        <li><a href="discussion.html">Discussion</a></li>
-      </ul> 
+<body>
+  <header>
+    <h1>Add New Recipe</h1>
+  </header>
+
+  <ul class="nav">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="recipe.html">Recipes</a></li>
+    <li><a href="discussion.html">Discussion</a></li>
+  </ul>
+
+  <div class="form-container">
+    <form id="recipeForm">
+      <label for="recipeName">Recipe Name:</label>
+      <input type="text" id="recipeName" name="recipeName" required placeholder="Enter recipe name">
+
+      <label for="ingredients">Ingredients (e.g., '2 cups of flour'):</label>
+      <textarea id="ingredients" name="ingredients" rows="5" required placeholder="List all ingredients"></textarea>
+
+      <label for="time">Time to Make (in minutes):</label>
+      <input type="number" id="time" name="time" required placeholder="e.g., 30">
+
+      <label for="steps">Preparation Steps:</label>
+      <textarea id="steps" name="steps" rows="6" required placeholder="Describe the steps"></textarea>
+
+      <label for="cuisine">Cuisine Type:</label>
+      <select id="cuisine" name="cuisine" required>
+        <option value="" disabled selected>Select cuisine</option>
+        <option value="American">American</option>
+        <option value="Italian">Italian</option>
+        <option value="Italian">Asian</option>
+        <option value="Mexican">Mexican</option>
+        <option value="Indian">Indian</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="diet">Dietary Preferences:</label>
+      <select id="diet" name="diet">
+        <option value="" disabled selected>Select dietary preference</option>
+        <option value="None">None</option>
+        <option value="Vegetarian">Vegetarian</option>
+        <option value="Vegan">Vegan</option>
+        <option value="Gluten-Free">Gluten-Free</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="notes">Additional Notes (optional):</label>
+      <textarea id="notes" name="notes" rows="4" placeholder="Any special tips or notes"></textarea>
+
+      <button type="submit" class="submit">Submit Recipe</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('recipeForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      alert('Thank you for submitting your recipe!');
+    });
+  </script>
 </body>
+
 </html>
