@@ -117,3 +117,8 @@ input, textarea, select, button {
   border-radius: 5px;
 }
 
+footer {
+  text-align: center;
+  margin: 50px;
+}
+
