@@ -1,26 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Discussion</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900&display=swap"
+        rel="stylesheet">
+    <style>
+        
+
+
+        .discussion-container {
+            max-width: 800px;
+            margin: 2em auto;
+            background: white;
+            padding: 1.5em;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .comment-form input,
+        .comment-form textarea {
+            width: 100%;
+            padding: 0.5em;
+            font-size: 1em;
+            margin-bottom: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .comment-form textarea {
+            resize: none;
+            
+        }
+
+        .comment-form button {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0.75em 1.5em;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .comment-form button:hover {
+            background-color: #e55e5e;
+        }
+
+        .comments-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 2em;
+        }
+
+        .comments-list li {
+            margin-bottom: 1.5em;
+            padding: 10px;
+            padding-bottom: 1em;
+            border-bottom: 1px solid #ddd;
+            word-wrap: break-word; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .comments-list .author {
+            font-weight: bold;
+        }
+
+        .comments-list .timestamp {
+            font-size: 0.9em;
+            color: gray;
+        }
+
+        .comments-list .message {
+            margin-top: 0.5em;
+        }
+
+    </style>
 </head>
+
 <body>
     <header>
-
         <h1>Discussion</h1>
     </header>
     <ul class="nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="recipe.html">Recipes</a></li>
         <li><a href="discussion.html">Discussion</a></li>
-    </ul> 
+    </ul>
+    <div class="intro">
+        <img src="sharerecipes.jpeg" alt="" srcset="">
+        <h2>Share, Learn, and Inspire!</h2>
+        <p>Welcome to the Recipe Discussion Forum! This is the perfect place to share your favorite recipes,
+            cooking tips, and creative kitchen hacks with a vibrant community of food lovers. Whether you're looking
+            to exchange ideas, discover new dishes, or just chat about your love for cooking, you've come to the right
+            spot. Simply enter your name (or post anonymously), share your thoughts, and explore the amazing recipes
+            and insights contributed by others. Let’s cook up some great conversations together!</p>
+    </div>
 
-    
+    <div class="discussion-container">
+        <form class="comment-form">
+            <input type="text" id="commentAuthor" placeholder="Your Name (optional)">
+            <textarea id="commentText" placeholder="Share your thoughts..." maxlength="500" required></textarea>
+            <button type="button" onclick="addComment()">Post Comment</button>
+        </form>
+        <ul class="comments-list" id="commentsList">
+            <!-- Comments will be dynamically added here -->
+            <li>
+                <p class="author">Ryan:</p>
+                <p class="timestamp">11/22/2024, 2:47:15 PM</p>
+                <p class="message">first</p>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        function addComment() {
+            const authorInput = document.getElementById('commentAuthor').value.trim();
+            const commentText = document.getElementById('commentText').value.trim();
+            const authorName = authorInput || "Anonymous"; // Default to 'Anonymous' if name is blank
+
+            if (commentText) {
+                const commentsList = document.getElementById('commentsList');
+
+                // Get the current date and time
+                const now = new Date();
+                const timestamp = now.toLocaleString(); // Formats the date and time as per the user's locale
+
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <p class="author">${authorName}:</p>
+                    <p class="timestamp">${timestamp}</p>
+                    <p class="message">${commentText}</p>
+                `;
+
+                commentsList.appendChild(listItem);
+                document.getElementById('commentAuthor').value = ''; // Clear the name field
+                document.getElementById('commentText').value = ''; // Clear the comment field
+            } else {
+                alert('Please write a comment before posting.');
+            }
+        }
+    </script>
 </body>
+
+<footer>
+    © Copyright 2024 Ryan Macfarlane
+  
+  </footer>
+
 </html>
