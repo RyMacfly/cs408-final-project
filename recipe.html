@@ -1,24 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <header>
-        <h1>Recipes</h1>
 
-    </header>
-    <ul class="nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="recipe.html">Recipes</a></li>
-        <li><a href="discussion.html">Discussion</a></li>
-        
-      </ul> 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Internal Styles to Center the Table -->
+  <style>
+   
+    .container {
+      display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+    }
+
+    /* Center the table */
+    table {
+      width: 70%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    td button {
+      margin: 5px;
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    td button:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+
+<header>
+  <h1>Recipes</h1>
+</header>
+
+<body>
+  <ul class="nav">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="recipe.html">Recipes</a></li>
+    <li><a href="discussion.html">Discussion</a></li>
+  </ul>
+
+  <div class="container">
+    <h1>Recipe Database</h1>
+  
+    <!-- Filter Section -->
+    <div>
+      <label for="dietFilter">Filter by Diet:</label>
+      <select id="dietFilter" onchange="loadRecipes()">
+        <option value="">All</option>
+        <option value="None">None</option>
+        <option value="Vegetarian">Vegetarian</option>
+        <option value="Vegan">Vegan</option>
+        <option value="Gluten-Free">Gluten-Free</option>
+        <option value="Other">Other</option>
+      </select>
+  
+      <label for="cuisineFilter">Filter by Cuisine:</label>
+      <select id="cuisineFilter" onchange="loadRecipes()">
+        <option value="">All</option>
+        <option value="American">American</option>
+        <option value="Italian">Italian</option>
+        <option value="Asian">Asian</option>
+        <option value="Mexican">Mexican</option>
+        <option value="Indian">Indian</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  
+    <!-- Table to display recipes -->
+    <table id="recipe-table" border="1">
+      <thead>
+        <tr>
+          <th>Recipe ID</th>
+          <th>Name</th>
+          <th>Time</th>
+          <th>Diet</th>
+          <th>Cuisine</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <!-- Populated dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Function to load recipes from the server with filters applied
+    function loadRecipes() {
+      const dietFilter = document.getElementById('dietFilter').value;
+      const cuisineFilter = document.getElementById('cuisineFilter').value;
+
+      const url = new URL("https://l11205ybn8.execute-api.us-east-2.amazonaws.com/items");
+      const params = new URLSearchParams();
+      if (dietFilter) params.append('diet', dietFilter);
+      if (cuisineFilter) params.append('cuisine', cuisineFilter);
+
+      url.search = params.toString(); // Append the filters to the URL
+
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          const recipes = JSON.parse(xhr.responseText);
+          const tableBody = document.getElementById("table-body");
+          tableBody.innerHTML = ""; // Clear table
+
+          // Populate table rows with recipes
+          recipes.forEach(recipe => {
+            const row = document.createElement("tr");
+
+            const idCell = document.createElement("td");
+            idCell.textContent = recipe.id;
+            row.appendChild(idCell);
+
+            const nameCell = document.createElement("td");
+            nameCell.textContent = recipe.name;
+            row.appendChild(nameCell);
+
+            const timeCell = document.createElement("td");
+            timeCell.textContent = recipe.time;
+            row.appendChild(timeCell);
+
+            const dietCell = document.createElement("td");
+            dietCell.textContent = recipe.diet;
+            row.appendChild(dietCell);
+
+            const cuisineCell = document.createElement("td");
+            cuisineCell.textContent = recipe.cuisine;
+            row.appendChild(cuisineCell);
+
+            const actionCell = document.createElement("td");
+            
+            // Create View button
+            const viewButton = document.createElement("button");
+            viewButton.textContent = "View";
+            viewButton.onclick = function () {
+              window.location.href = `view-recipe.html?id=${recipe.id}`;
+            };
+            actionCell.appendChild(viewButton);
+
+            // Create Delete button
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.onclick = function () {
+              deleteRecipe(recipe.id);
+            };
+            actionCell.appendChild(deleteButton);
+            row.appendChild(actionCell);
+
+            tableBody.appendChild(row);
+          });
+        } else {
+          console.error("Error loading recipes:", xhr.responseText);
+        }
+      };
+      xhr.send();
+    }
+
+    // Function to delete a recipe
+    function deleteRecipe(id) {
+      const xhr = new XMLHttpRequest();
+      xhr.open("DELETE", `https://l11205ybn8.execute-api.us-east-2.amazonaws.com/items/${id}`);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          loadRecipes(); // Refresh table after deletion
+        } else {
+          console.error("Error deleting recipe:", xhr.responseText);
+        }
+      };
+      xhr.send();
+    }
+
+    // Initial call to load recipes when the page is loaded
+    loadRecipes();
+  </script>
+
 </body>
+
 </html>
