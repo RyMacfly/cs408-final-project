@@ -178,6 +178,7 @@
             row.appendChild(actionCell);
 
             tableBody.appendChild(row);
+            console.log("Table retrieved successfully")
           });
         } else {
           console.error("Error loading recipes:", xhr.responseText);
@@ -193,6 +194,7 @@
       xhr.onload = function () {
         if (xhr.status === 200) {
           loadRecipes(); // Refresh table after deletion
+          console.log("Recipe deleted successfully")
         } else {
           console.error("Error deleting recipe:", xhr.responseText);
         }

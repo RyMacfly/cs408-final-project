@@ -82,8 +82,8 @@
                 <ul>
                     ${stepsArray.map(step => `<li>${step}</li>`).join('')}
                 </ul>
-                <p><strong>Notes:</strong> ${recipe.notes || "N/A"}</p>
-            `;
+                <p><strong>Notes:</strong> ${recipe.notes || "N/A"}</p>`;
+                console.log("Recipe displayed successfully")
                 } else {
                     console.error("Error loading recipe:", xhr.responseText);
                 }
@@ -100,7 +100,7 @@
 
 <footer>
     © Copyright 2024 Ryan Macfarlane
-  
-  </footer>
+
+</footer>
 
 </html>

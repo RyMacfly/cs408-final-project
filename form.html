@@ -96,6 +96,7 @@
   
         if (response.ok) {
           alert("Recipe added successfully!");
+          console.log("Recipe added successfully")
           document.getElementById('recipeForm').reset();
         } else {
           const errorData = await response.json();
