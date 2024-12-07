@@ -62,7 +62,6 @@ This project’s design not only provides essential functionalities like recipe 
 
 ## Project Wireframe
 
-TODO: Replace the wireframe below with you own design.
 
 ![image](https://github.com/user-attachments/assets/103ab4ef-6aa3-40f1-b010-519688b4a523)
 
